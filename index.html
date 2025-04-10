@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">UrbanBuy</a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="background-image: url(https://plus.unsplash.com/premium_photo-1679056835084-7f21e64a3402?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTd8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D);">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Welcome to Our Store</h1>
+                    <p>Find the best products for your needs</p>
+                    <button class="btn btn-primary">Shop Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carousel Section -->
+        <section class="carousel-section">
+            <div class="container">
+                <h2>Featured Products</h2>
+                <div class="carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-slide">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1635205383450-e0fee6fe73c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjJ8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D" alt="Product 1">
+                                <h3>Product 1</h3>
+                                <p>$99.99</p>
+                                <button class="btn">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1636590416469-af0828ebbf27?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D" alt="Product 2">
+                                <h3>Product 2</h3>
+                                <p>$89.99</p>
+                                <button class="btn">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1644621596488-25d519a1a8ed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D" alt="Product 3">
+                                <h3>Product 3</h3>
+                                <p>$79.99</p>
+                                <button class="btn">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1596518997680-7f15c4b7543d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODR8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D" alt="Product 4">
+                                <h3>Product 4</h3>
+                                <p>$69.99</p>
+                                <button class="btn">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="product-card">
+                                <img src="https://images.unsplash.com/photo-1618001789159-ffffe6f96ef2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fGZhc2hpb24lMjBtYW58ZW58MHx8MHx8fDA%3D" alt="Product 5">
+                                <h3>Product 5</h3>
+                                <p>$59.99</p>
+                                <button class="btn">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-prev">❮</button>
+                    <button class="carousel-next">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories">
+            <div class="container">
+                <h2>Shop by Category</h2>
+                <div class="category-grid">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1612015670817-0127d21628d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2hvZXMlMjBtZW5zJTIwbmlrZXxlbnwwfHwwfHx8MA%3D%3D" alt="Category 1">
+                        <h3>Shoes</h3>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1673356302067-aac3b545a362?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTN8fHdhcmRyb2JlJTIwbWVuc3xlbnwwfHwwfHx8MA%3D%3D" alt="Category 2">
+                        <h3>Tee-shirts</h3>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8d2F0Y2hlc3xlbnwwfHwwfHx8MA%3D%3D" alt="Category 3">
+                        <h3>Watches</h3>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1732139637220-15346842a9fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHN1biUyMGdsYXNzZXMlMjBtZW5zfGVufDB8fDB8fHww" alt="Category 4">
+                        <h3>Glasses</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Get the latest updates about our products and offers</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Featured</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Your Store. All rights reserved.</p>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
