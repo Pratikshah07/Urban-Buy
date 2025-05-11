@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const navMenu = document.querySelector('.nav-menu');
 
   if (hamburger) {
-      hamburger.addEventListener('click', () => {
+      hamburger.addEventListener('click', function() {
           hamburger.classList.toggle('active');
           navMenu.classList.toggle('active');
       });
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close mobile menu when clicking a nav link
   document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', function() {
           hamburger.classList.remove('active');
           navMenu.classList.remove('active');
       });
@@ -21,69 +21,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Carousel functionality
   const carousel = document.querySelector('.carousel-container');
-  const slides = document.querySelectorAll('.carousel-slide');
+  const carouselSlides = document.querySelectorAll('.carousel-slide');
   const prevBtn = document.querySelector('.carousel-prev');
   const nextBtn = document.querySelector('.carousel-next');
-  
-  if (carousel && slides.length > 0) {
-      let currentIndex = 0;
-      const slideWidth = slides[0].clientWidth;
-      const slidesCount = slides.length;
-      let autoPlayInterval;
+  let currentIndex = 0;
+  let slideWidth = 0;
+  let slidesToShow = 4;
 
-      // Set initial position
-      updateCarouselPosition();
-
-      // Event listeners for carousel buttons
-      if (prevBtn) {
-          prevBtn.addEventListener('click', () => {
-              goToPrevSlide();
-              resetAutoPlay();
-          });
+  // Adjust slides to show based on screen width
+  function updateSlidesToShow() {
+      if (window.innerWidth < 768) {
+          slidesToShow = 1;
+      } else if (window.innerWidth < 992) {
+          slidesToShow = 2;
+      } else if (window.innerWidth < 1200) {
+          slidesToShow = 3;
+      } else {
+          slidesToShow = 4;
       }
+      
+      slideWidth = carousel.clientWidth / slidesToShow;
+      updateCarousel();
+  }
 
-      if (nextBtn) {
-          nextBtn.addEventListener('click', () => {
-              goToNextSlide();
-              resetAutoPlay();
-          });
+  function updateCarousel() {
+      if (!carousel) return;
+      
+      // Set width for each slide
+      carouselSlides.forEach(slide => {
+          slide.style.minWidth = `${slideWidth}px`;
+      });
+
+      // Transform carousel to show current slides
+      carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+  }
+
+  function moveNext() {
+      if (currentIndex < carouselSlides.length - slidesToShow) {
+          currentIndex++;
+      } else {
+          currentIndex = 0;
       }
+      updateCarousel();
+  }
 
-      // Auto-play the carousel
-      startAutoPlay();
-
-      // Functions for carousel
-      function updateCarouselPosition() {
-          // For mobile, show one slide at a time
-          if (window.innerWidth <= 768) {
-              carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-          } else {
-              // For desktop, show 3 slides with the current one in the middle
-              carousel.style.transform = `translateX(-${currentIndex * 33.33}%)`;
-          }
+  function movePrev() {
+      if (currentIndex > 0) {
+          currentIndex--;
+      } else {
+          currentIndex = carouselSlides.length - slidesToShow;
       }
+      updateCarousel();
+  }
 
-      function goToNextSlide() {
-          currentIndex = (currentIndex + 1) % slidesCount;
-          updateCarouselPosition();
-      }
+  // Initialize carousel
+  if (carousel && carouselSlides.length) {
+      updateSlidesToShow();
+      window.addEventListener('resize', updateSlidesToShow);
 
-      function goToPrevSlide() {
-          currentIndex = (currentIndex - 1 + slidesCount) % slidesCount;
-          updateCarouselPosition();
-      }
+      // Add event listeners to buttons
+      if (prevBtn) prevBtn.addEventListener('click', movePrev);
+      if (nextBtn) nextBtn.addEventListener('click', moveNext);
 
-      function startAutoPlay() {
-          autoPlayInterval = setInterval(goToNextSlide, 7000);
-      }
-
-      function resetAutoPlay() {
-          clearInterval(autoPlayInterval);
-          startAutoPlay();
-      }
-
-      // Handle window resize
-      window.addEventListener('resize', updateCarouselPosition);
+      // Auto slide every 5 seconds
+      setInterval(moveNext, 5000);
   }
 
   // Newsletter form submission
@@ -91,43 +92,76 @@ document.addEventListener('DOMContentLoaded', function() {
   if (newsletterForm) {
       newsletterForm.addEventListener('submit', function(e) {
           e.preventDefault();
-          const emailInput = this.querySelector('input[type="email"]');
-          const email = emailInput.value;
+          const email = this.querySelector('input[type="email"]').value;
           
-          // Simulate API call
-          console.log(`Newsletter subscription: ${email}`);
-          
-          // Show success message
-          showToast('Thank you for subscribing!', 'success');
-          
-          // Reset form
-          emailInput.value = '';
+          // Send AJAX request
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'newsletter.php', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onload = function() {
+              if (this.status === 200) {
+                  const response = JSON.parse(this.responseText);
+                  alert(response.message);
+                  if (response.status === 'success') {
+                      newsletterForm.reset();
+                  }
+              }
+          };
+          xhr.send(`newsletter_email=${email}`);
       });
   }
 
   // Add to cart functionality
-  const addToCartButtons = document.querySelectorAll('.product-card .btn');
-  const cartCountElement = document.querySelector('.cart-count');
-  let cartCount = 0;
-
+  const addToCartButtons = document.querySelectorAll('.add-to-cart, .add-to-cart-btn');
   addToCartButtons.forEach(button => {
       button.addEventListener('click', function() {
-          // Get product info
-          const productCard = this.closest('.product-card');
-          const productName = productCard.querySelector('h3').textContent;
-          const productPrice = productCard.querySelector('p').textContent;
+          const productId = this.getAttribute('data-id');
+          const quantity = 1; // Default quantity
           
-          // Increment cart count
-          cartCount++;
-          if (cartCountElement) {
-              cartCountElement.textContent = cartCount;
+          // Send AJAX request
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'cart.php', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onload = function() {
+              if (this.status === 200) {
+                  const response = JSON.parse(this.responseText);
+                  alert(response.message);
+                  if (response.status === 'success') {
+                      // Update cart count in header
+                      document.querySelector('.cart-count').textContent = response.cart_count;
+                  }
+              }
+          };
+          xhr.send(`action=add_to_cart&product_id=${productId}&quantity=${quantity}`);
+      });
+  });
+
+  // Quick view functionality
+  const quickViewButtons = document.querySelectorAll('.quick-view');
+  quickViewButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          const productId = this.getAttribute('data-id');
+          // Implementation for quick view modal
+          console.log('Quick view for product ID:', productId);
+      });
+  });
+
+  // Product quantity controls
+  const quantityInputs = document.querySelectorAll('.quantity-input');
+  quantityInputs.forEach(input => {
+      const decrementBtn = input.previousElementSibling;
+      const incrementBtn = input.nextElementSibling;
+      
+      decrementBtn.addEventListener('click', function() {
+          let value = parseInt(input.value);
+          if (value > 1) {
+              input.value = value - 1;
           }
-          
-          // Show success message
-          showToast(`${productName} added to cart!`, 'success');
-          
-          // Simulate adding to cart
-          console.log(`Added to cart: ${productName} - ${productPrice}`);
+      });
+      
+      incrementBtn.addEventListener('click', function() {
+          let value = parseInt(input.value);
+          input.value = value + 1;
       });
   });
 
